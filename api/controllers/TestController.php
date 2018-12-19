@@ -1,7 +1,7 @@
 <?php
-include_once("PostController.php");
+include_once("NotGetController.php");
 
-class TestController extends PostController {
+class TestController extends NotGetController {
 
   public function execute() {
 

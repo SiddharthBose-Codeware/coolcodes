@@ -1,7 +1,7 @@
 <?php
 include_once("Controller.php");
 
-class PostController extends Controller {
+class NotGetController extends Controller {
 
   public function canExecuteRequest($type) {
 
