@@ -1,7 +1,7 @@
 <?php
 include_once("PDOInstance.php");
 
-class BuildQuerySQL {
+class BuildSQLQuery {
 
   private $finalSQLString;
 
@@ -112,9 +112,5 @@ class BuildQuerySQL {
   }
 
 }
-
-$result = (new BuildQuerySQL)->select("first_name")->from("accounts")->where()->equals("first_name", "John");
-
-print_r($result->execute());
 
 ?>
