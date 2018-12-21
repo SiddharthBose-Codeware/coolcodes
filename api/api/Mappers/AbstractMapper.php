@@ -2,7 +2,15 @@
 
 abstract class AbstractMapper {
 
-  abstract public function map($mappingData);
+  protected $mappingData;
+
+  function __construct($mappingData) {
+
+    $this->mappingData = $mappingData;
+
+  }
+
+  abstract public function getObject();
 
 }
 

@@ -1,22 +1,24 @@
 <?php
 include_once("AbstractMapper.php");
-include_once("../Models/Accounts.php");
+include_once("../Models/AccountModel.php");
 
 class AccountMapper extends AbstractMapper {
 
-  public function map($mappingData) {
+  public function getObject() {
 
-    $account = new Account();
+    $account = new AccountModel();
 
-    $account->firstName = $mappingData["firstName"];
+    $account->pk = $this->mappingData["pk"];
 
-    $account->lastName = $mappingData["lastName"];
+    $account->firstName = $this->mappingData["firstName"];
 
-    $account->username = $mappingData["username"];
+    $account->lastName = $this->mappingData["lastName"];
 
-    $account->email = $mappingData["email"];
+    $account->username = $this->mappingData["username"];
 
-    $account->password = $mappingData["password"];
+    $account->email = $this->mappingData["email"];
+
+    $account->password = $this->mappingData["password"];
 
     return $account;
 

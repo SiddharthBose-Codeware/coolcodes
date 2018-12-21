@@ -1,17 +1,24 @@
 <?php
+include_once("AbstractModel.php");
 include_once("../Passwords.php");
+include_once("../Builders/AccountModelBuilder.php");
+include_once("../Database/Database.php");
 
 class AccountModel extends AbstractModel {
 
-  private $firstName;
+  public $firstName;
 
-  private $lastName;
+  public $lastName;
 
-  private $username;
+  public $username;
 
-  private $email;
+  public $email;
 
-  private $password;
+  public $password;
+
+  public static $modelBuilder = AccountModelBuilder::class;
+
+  public static $tableName = "accounts";
 
   public function setFirstName($firstName) {
 

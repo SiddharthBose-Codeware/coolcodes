@@ -91,13 +91,13 @@ class BuildSQLQuery {
 
   public function or() {
 
-    $this->finalSQLString .= "or ";
+    $this->finalSQLString .= "OR ";
 
     return $this;
 
   }
 
-  public function execute() {
+  public function execute($builder) {
 
     $result = $this->pdo->prepare($this->finalSQLString);
 
@@ -105,7 +105,7 @@ class BuildSQLQuery {
 
     if ($this->isSelect) {
 
-      return $result->fetchAll(PDO::FETCH_ASSOC);
+      return $result->fetchAll(PDO::FETCH_CLASS, $builder);
 
     }
 

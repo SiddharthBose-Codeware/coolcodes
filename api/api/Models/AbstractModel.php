@@ -2,9 +2,11 @@
 
 class AbstractModel {
 
-  abstract private $pk;
+  public $pk;
 
-  abstract private $tableName;
+  public static $tableName;
+
+  public static $modelBuilder;
 
 }
 
