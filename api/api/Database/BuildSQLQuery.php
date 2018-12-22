@@ -37,11 +37,42 @@ class BuildSQLQuery {
 
   }
 
-  public function set($field, $value) {
+  public function set($pairs) {
 
-    $this->finalSQLString .= "SET ".$field."=:".$field." ";
+    $this->finalSQLString .= "SET ";
+
+    foreach($pairs as $key => $value) {
+
+      $this->finalSQLString .= $key."=:".$key.", ";
+
+    }
+
+    $this->finalSQLString = substr($this->finalSQLString, 0, strlen($this->finalSQLString) - 2);
 
     $this->params[":".$field] = $value;
+
+    return $this;
+
+  }
+
+  public function insert($table, $pairs) {
+
+    $this->finalSQLString .= "INSERT INTO ".$table." ";
+
+    $keys = "";
+    $values = "";
+
+    foreach($pairs as $key => $value) {
+
+      $keys .= $key.", ";
+
+      $values .= ":".$key.", ";
+
+      $this->params[":".$key] = $value;
+
+    }
+
+    $this->finalSQLString .= "(".substr($keys, 0, strlen($keys) - 2).") VALUES (".substr($values, 0, strlen($values) - 2).")";
 
     return $this;
 
@@ -97,7 +128,7 @@ class BuildSQLQuery {
 
   }
 
-  public function execute($builder) {
+  public function execute($builder = null) {
 
     $result = $this->pdo->prepare($this->finalSQLString);
 

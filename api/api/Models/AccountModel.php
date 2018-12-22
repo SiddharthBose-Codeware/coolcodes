@@ -1,7 +1,6 @@
 <?php
 include_once("AbstractModel.php");
 include_once("../Passwords.php");
-include_once("../Builders/AccountModelBuilder.php");
 include_once("../Database/Database.php");
 
 class AccountModel extends AbstractModel {
@@ -53,5 +52,15 @@ class AccountModel extends AbstractModel {
   }
 
 }
+
+$model = new AccountModel;
+
+$model->firstName = "John";
+$model->lastName = "Doe";
+$model->username = "johndoe";
+$model->email = "john@esiponjya.com";
+$model->password = Passwords::getHashedPassword("tripletmolodybyquintino");
+
+(new Database)->save($model);
 
 ?>

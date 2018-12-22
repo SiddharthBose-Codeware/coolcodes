@@ -1,5 +1,6 @@
 <?php
 include_once("BuildSQLQuery.php");
+include_once("ModelFields.php");
 
 class Database {
 
@@ -18,6 +19,20 @@ class Database {
     }
 
     return $modelObjects;
+
+  }
+
+  public function save($model) {
+
+    if ($model->pk) {
+
+      (new BuildSQLQuery)->update($model::$modelBuilder)->set(ModelFields::getFields($model))->execute();
+
+    } else {
+
+      print_r((new BuildSQLQuery)->insert($model::$tableName, ModelFields::getFields($model))->execute());
+
+    }
 
   }
 
