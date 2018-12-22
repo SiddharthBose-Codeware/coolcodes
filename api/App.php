@@ -1,5 +1,5 @@
 <?php
-include_once("RoutesTree.php");
+include_once("Routes.php");
 include_once("Config.php");
 
 class App {
@@ -16,25 +16,23 @@ class App {
 
   public function init() {
 
-    $routesTree = new RoutesTree($this->appConfig);
+    $routes = new Routes($this->appConfig);
 
     if ($this->appConfig->isUnderDevelopment()) {
 
-      $this->controller = $routesTree->getUnderDevelopmentController();
+      $this->controller = $routes->getUnderDevelopmentController();
 
     } else {
 
-      $pageURL = str_replace("/coolcodes/api/", "", $_SERVER['REQUEST_URI']);
-
-      $path = explode("/", $pageURL);
+      $path = str_replace("/coolcodes/api/", "", $_SERVER['REQUEST_URI']);
 
       if ($_SERVER['REQUEST_URI']{strlen($_SERVER['REQUEST_URI']) - 1} == "/") {
 
-        $path = array_slice($path, 0, count($path) - 1);
+        $path = substr($path, 0, (strlen($path) - 1));
 
       }
 
-      $this->controller = $routesTree->getController($path);
+      $this->controller = $routes->getController($path);
 
 
     }

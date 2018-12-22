@@ -5,7 +5,7 @@ class NotGetController extends Controller {
 
   public function canExecuteRequest($type) {
 
-    return $type != "GET";
+    return $type == "GET";
 
   }
 

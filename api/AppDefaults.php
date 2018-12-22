@@ -8,20 +8,13 @@ class AppDefaults {
     return new Config([
 
       "underDevelopment" => false,
-      "underDevelopmentController" => new UnderDevelopmentController,
-      "notFoundController" => new NotFoundController,
-      "defaultRouteName" => "default",
-      "preparedRoutedTree" => [
+      "underDevelopmentController" => UnderDevelopmentController::class,
+      "notFoundController" => NotFoundController::class,
+      "preparedRoutes" => [
 
-        "default" => new HomeController,
-
-        "something" => [
-
-          "default" => new SomethingController,
-
-          "test" => new TestController
-
-        ]
+        "" => HomeController::class,
+        "something" => SomethingController::class,
+        "something/test" => TestController::class
 
       ]
 

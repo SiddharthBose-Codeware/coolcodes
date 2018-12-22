@@ -28,15 +28,9 @@ class Config {
 
   }
 
-  public function getDefaultRouteName() {
+  public function getPreparedRoutes() {
 
-    return $this->configItems["defaultRouteName"]; // "default";
-
-  }
-
-  public function getPreparedRoutesTree() {
-
-    return $this->configItems["preparedRoutedTree"];
+    return $this->configItems["preparedRoutes"];
 
     // [
     //
