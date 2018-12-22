@@ -12,7 +12,7 @@ class RoutesTree {
   function __construct($appConfig) {
 
     $this->appConfig = $appConfig;
-    
+
     $this->initRoutesTree();
 
   }
