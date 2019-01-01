@@ -3,6 +3,8 @@ include_once("AbstractModel.php");
 
 class AccountModel extends AbstractModel {
 
+  public static $tableName = "accounts";
+
   private $firstName;
 
   private $lastName;
@@ -24,7 +26,6 @@ class AccountModel extends AbstractModel {
     $this->firstName = $firstName;
 
   }
-
   public function getLastName() {
 
     return $this->lastName;
@@ -36,7 +37,6 @@ class AccountModel extends AbstractModel {
     $this->lastName = $lastName;
 
   }
-
   public function getUsername() {
 
     return $this->username;
@@ -48,7 +48,6 @@ class AccountModel extends AbstractModel {
     $this->username = $username;
 
   }
-
   public function getEmail() {
 
     return $this->email;
@@ -60,7 +59,6 @@ class AccountModel extends AbstractModel {
     $this->email = $email;
 
   }
-
   public function getPassword() {
 
     return $this->password;
@@ -73,5 +71,24 @@ class AccountModel extends AbstractModel {
 
   }
 
+  public function getFields() {
+
+    return [
+
+        "accounts" => $accounts,
+
+        "firstName" => $firstName,
+
+        "lastName" => $lastName,
+
+        "username" => $username,
+
+        "email" => $email,
+
+        "password" => $password
+
+    ];
+
+  }
 
 }

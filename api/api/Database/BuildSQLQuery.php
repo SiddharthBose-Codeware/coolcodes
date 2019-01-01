@@ -1,9 +1,14 @@
 <?php
-include_once("PDOInstance.php");
 
 class BuildSQLQuery {
 
   private $isSelect;
+
+  private $isInsert;
+
+  private $isUpdate;
+
+  private $isDelete;
 
   private $isWherePresent;
 
@@ -126,6 +131,8 @@ class BuildSQLQuery {
 
   public function insert($insertData) {
 
+    $this->isInsert = true;
+
     $this->insertData = $insertData;
 
     return $this;
@@ -134,6 +141,8 @@ class BuildSQLQuery {
 
   public function update($setData) {
 
+    $this->isUpdate = true;
+
     $this->setData = $setData;
 
     return $this;
@@ -141,6 +150,8 @@ class BuildSQLQuery {
   }
 
   public function delete() {
+
+    $this->isDelete = true;
 
     return $this;
 
@@ -162,11 +173,39 @@ class BuildSQLQuery {
 
   }
 
-  public function execute() {
+  public function build() {
 
-    echo $this->getDeleteQuery();
+    if ($this->isSelect) {
 
-    print_r($this->bindMap);
+      return $this->getSelectQuery($this->fieldsToSelect);
+
+    } else if ($this->isInsert) {
+
+      return $this->getInsertQuery($this->insertData);
+
+    } else if ($this->isUpdate) {
+
+      return $this->getUpdateQuery($this->setData);
+
+    } else if ($this->isDelete) {
+
+      return $this->getDeleteQuery();
+
+    }
+
+    return "";
+
+  }
+
+  public function getBindValues() {
+
+    return $this->bindMap;
+
+  }
+
+  public function isSelect() {
+
+    return $this->isSelect;
 
   }
 
