@@ -3,76 +3,138 @@ include_once("PDOInstance.php");
 
 class BuildSQLQuery {
 
-  private $finalSQLString;
-
   private $isSelect;
 
-  private $pdo;
+  private $isWherePresent;
 
-  private $params;
+  private $tableName;
 
-  function __construct() {
+  private $whereClause;
 
-    $this->pdo = PDOInstance::getPDOInstance()->getConnection("127.0.0.1", "coolcodes", "root", "");
+  private $fieldsToSelect;
 
-    $this->params = [];
+  private $bindMap;
 
-  }
+  private $setData;
 
-  public function select($subject) {
+  private $insertData;
 
-    $this->isSelect = true;
+  function __construct($tableName = NULL) {
 
-    $this->finalSQLString .= "SELECT ".$subject." ";
+    if ($tableName) {
 
-    return $this;
-
-  }
-
-  public function update($table) {
-
-    $this->finalSQLString .= "UPDATE ".$table." ";
-
-    return $this;
-
-  }
-
-  public function set($pairs) {
-
-    $this->finalSQLString .= "SET ";
-
-    foreach($pairs as $key => $value) {
-
-      $this->finalSQLString .= $key."=:".$key.", ";
+      $this->setTableName($tableName);
 
     }
 
-    $this->finalSQLString = substr($this->finalSQLString, 0, strlen($this->finalSQLString) - 2);
-
-    $this->params[":".$field] = $value;
-
-    return $this;
+    $this->bindMap = [];
 
   }
 
-  public function insert($table, $pairs) {
+  private function getSelectQuery() {
 
-    $this->finalSQLString .= "INSERT INTO ".$table." ";
+    $toSelect = "*";
+
+    if (is_array($this->fieldsToSelect)) {
+
+      $toSelect = implode(", ", $this->fieldsToSelect);
+
+    }
+
+    return "SELECT ".$toSelect." FROM ".$this->tableName.($this->isWherePresent ? " WHERE ".$this->whereClause : "");
+
+  }
+
+  private function getInsertQuery($insertData) {
 
     $keys = "";
     $values = "";
 
-    foreach($pairs as $key => $value) {
+    $keys = implode(", ", array_keys($insertData));
 
-      $keys .= $key.", ";
+    $values = ":".implode(", :", array_keys($insertData));
 
-      $values .= ":".$key.", ";
+    $this->bindMap = array_merge($this->bindMap, $insertData);
 
-      $this->params[":".$key] = $value;
+    return "INSERT INTO ".$this->tableName." (".$keys.") VALUES (".$values.")";
+
+  }
+
+  private function getUpdateQuery() {
+
+    $setValues = [];
+
+    foreach ($this->setData as $fieldName => $value) {
+
+      array_push($setValues, ($fieldName."=:".$fieldName));
+
+      $this->bindMap[":".$fieldName] = $value;
 
     }
 
-    $this->finalSQLString .= "(".substr($keys, 0, strlen($keys) - 2).") VALUES (".substr($values, 0, strlen($values) - 2).")";
+    return "UPDATE ".$this->tableName." SET ".implode(", ", $setValues).
+    ($this->isWherePresent ? " WHERE ".$this->whereClause : "");
+
+  }
+
+  private function getDeleteQuery() {
+
+    return "DELETE FROM ".$this->tableName.
+    ($this->isWherePresent ? " WHERE ".$this->whereClause : "");
+
+  }
+
+  public function setTableName($tableName) {
+
+    $this->tableName = $tableName;
+
+    return $this;
+
+  }
+
+  public function select($fieldsToSelect) {
+
+    $this->isSelect = true;
+
+    if (!is_array($fieldsToSelect)) {
+
+      $fieldsToSelect = [$fieldsToSelect];
+
+    }
+
+    $this->fieldsToSelect = $fieldsToSelect;
+
+    return $this;
+
+  }
+
+  public function where($left, $operator, $right) {
+
+    if (!$this->isWherePresent) {
+
+      $this->isWherePresent = true;
+
+    }
+
+    $this->whereClause .= ($left.$operator.":".$left)." ";
+
+    $this->bindMap[":".$left] = $right;
+
+    return $this;
+
+  }
+
+  public function insert($insertData) {
+
+    $this->insertData = $insertData;
+
+    return $this;
+
+  }
+
+  public function update($setData) {
+
+    $this->setData = $setData;
 
     return $this;
 
@@ -80,41 +142,13 @@ class BuildSQLQuery {
 
   public function delete() {
 
-    $this->finalSQLString .= "DELETE ";
-
     return $this;
 
   }
 
-  public function from($table) {
+  public function and() {
 
-    $this->finalSQLString .= "FROM ".$table." ";
-
-    return $this;
-
-  }
-
-  public function where() {
-
-    $this->finalSQLString .= "WHERE ";
-
-    return $this;
-
-  }
-
-  public function equals($firstParam, $secondParam) {
-
-    $this->finalSQLString .= $firstParam."=:".$firstParam." ";
-
-    $this->params[":".$firstParam] = $secondParam;
-
-    return $this;
-
-  }
-
-  public function add() {
-
-    $this->finalSQLString .= "ADD ";
+    $this->whereClause .= "AND ";
 
     return $this;
 
@@ -122,26 +156,39 @@ class BuildSQLQuery {
 
   public function or() {
 
-    $this->finalSQLString .= "OR ";
+    $this->whereClause .= "OR ";
 
     return $this;
 
   }
 
-  public function execute($builder = null) {
+  public function execute() {
 
-    $result = $this->pdo->prepare($this->finalSQLString);
+    echo $this->getDeleteQuery();
 
-    $result->execute($this->params);
-
-    if ($this->isSelect) {
-
-      return $result->fetchAll(PDO::FETCH_CLASS, $builder);
-
-    }
+    print_r($this->bindMap);
 
   }
 
 }
 
-?>
+// print_r((new BuildSQLQuery)->setTableName("accounts")->select(["email", "password"])->where("something", "=", "anything")->and()->where("madperson", "=", "programmer")->execute());
+
+// print_r((new BuildSQLQuery)->setTableName("accounts")->insert([
+//
+//   "firstName" => "something",
+//   "lastName" => "anything"
+//
+// ])->execute());
+
+// print_r((new BuildSQLQuery)->setTableName("accounts")->update([
+//
+//   "firstName" => "something",
+//   "lastName" => "anything"
+//
+// ])->where("email", "=", "a@b.com")
+// ->and()
+// ->where("password", "=", "somerandompassword")
+// ->execute());
+
+// print_r((new BuildSQLQuery)->setTableName("accounts")->delete()->where("id", "=", "somenumber")->execute());

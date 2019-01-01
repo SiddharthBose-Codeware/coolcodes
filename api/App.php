@@ -20,7 +20,9 @@ class App {
 
     if ($this->appConfig->isUnderDevelopment()) {
 
-      $this->controller = $routes->getUnderDevelopmentController();
+      $underDevelopementController = $routes->getUnderDevelopmentController();
+
+      $this->controller = new $underDevelopementController;
 
     } else {
 

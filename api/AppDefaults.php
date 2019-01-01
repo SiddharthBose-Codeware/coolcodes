@@ -7,7 +7,7 @@ class AppDefaults {
 
     return new Config([
 
-      "underDevelopment" => false,
+      "underDevelopment" => true,
       "underDevelopmentController" => UnderDevelopmentController::class,
       "notFoundController" => NotFoundController::class,
       "preparedRoutes" => [

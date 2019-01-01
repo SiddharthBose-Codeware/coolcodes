@@ -32,20 +32,6 @@ class Config {
 
     return $this->configItems["preparedRoutes"];
 
-    // [
-    //
-    //   "default" => new HomeController,
-    //
-    //   "something" => [
-    //
-    //     "default" => new SomethingController,
-    //
-    //     "test" => new TestController
-    //
-    //   ]
-    //
-    // ];
-
   }
 
 }

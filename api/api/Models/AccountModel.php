@@ -1,27 +1,33 @@
 <?php
 include_once("AbstractModel.php");
-include_once("../Passwords.php");
-include_once("../Database/Database.php");
 
 class AccountModel extends AbstractModel {
 
-  public $firstName;
+  private $firstName;
 
-  public $lastName;
+  private $lastName;
 
-  public $username;
+  private $username;
 
-  public $email;
+  private $email;
 
-  public $password;
+  private $password;
 
-  public static $modelBuilder = AccountModelBuilder::class;
+  public function getFirstName() {
 
-  public static $tableName = "accounts";
+    return $this->firstName;
+
+  }
 
   public function setFirstName($firstName) {
 
     $this->firstName = $firstName;
+
+  }
+
+  public function getLastName() {
+
+    return $this->lastName;
 
   }
 
@@ -31,9 +37,21 @@ class AccountModel extends AbstractModel {
 
   }
 
+  public function getUsername() {
+
+    return $this->username;
+
+  }
+
   public function setUsername($username) {
 
     $this->username = $username;
+
+  }
+
+  public function getEmail() {
+
+    return $this->email;
 
   }
 
@@ -43,24 +61,17 @@ class AccountModel extends AbstractModel {
 
   }
 
-  public function setPassword($password) {
+  public function getPassword() {
 
-    $hashedPassword = Passwords::getHashedPassword($password);
-
-    $this->password = $hashedPassword;
+    return $this->password;
 
   }
 
+  public function setPassword($password) {
+
+    $this->password = $password;
+
+  }
+
+
 }
-
-$model = new AccountModel;
-
-$model->firstName = "John";
-$model->lastName = "Doe";
-$model->username = "johndoe";
-$model->email = "john@esiponjya.com";
-$model->password = Passwords::getHashedPassword("tripletmolodybyquintino");
-
-(new Database)->save($model);
-
-?>

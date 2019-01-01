@@ -41,11 +41,11 @@ class Routes {
 
     if (array_key_exists($path, $this->routes)) {
 
-      return new $this->routes[$path];
+      return (new $this->routes[$path]);
 
     } else {
 
-      return new $this->notFoundController;
+      return (new $this->notFoundController);
 
     }
 

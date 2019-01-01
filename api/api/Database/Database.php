@@ -26,7 +26,7 @@ class Database {
 
     if ($model->pk) {
 
-      (new BuildSQLQuery)->update($model::$modelBuilder)->set(ModelFields::getFields($model))->execute();
+      (new BuildSQLQuery)->update($model::$tableName)->set(ModelFields::getFields($model))->execute();
 
     } else {
 
