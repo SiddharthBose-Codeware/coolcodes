@@ -34,6 +34,12 @@ class Config {
 
   }
 
+  public function getAdditionalHeaders() {
+
+    return $this->configItems["additionalHeaders"];
+
+  }
+
 }
 
 ?>

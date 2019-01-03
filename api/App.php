@@ -34,6 +34,14 @@ class App {
 
       }
 
+      $headers = $this->appConfig->getAdditionalHeaders();
+
+      foreach ($headers as $headerType => $headerValue) {
+
+        header($headerType.": ".$headerValue);
+
+      }
+
       $this->controller = $routes->getController($path);
 
 

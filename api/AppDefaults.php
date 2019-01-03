@@ -16,6 +16,12 @@ class AppDefaults {
         "something" => SomethingController::class,
         "something/test" => TestController::class
 
+      ],
+
+      "additionalHeaders" => [
+
+        "Content-Type" => "application/json"
+
       ]
 
     ]);

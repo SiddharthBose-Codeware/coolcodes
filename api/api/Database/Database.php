@@ -1,5 +1,6 @@
 <?php
 include_once("BuildSQLQuery.php");
+include_once("../Models/AccountModel.php");
 
 class Database {
 
