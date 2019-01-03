@@ -7,7 +7,7 @@ class AppDefaults {
 
     return new Config([
 
-      "underDevelopment" => true,
+      "underDevelopment" => false,
       "underDevelopmentController" => UnderDevelopmentController::class,
       "notFoundController" => NotFoundController::class,
       "preparedRoutes" => [
@@ -18,9 +18,16 @@ class AppDefaults {
 
       ],
 
-      "additionalHeaders" => [
+      // "additionalHeaders" => [
+      //
+      //   "Content-Type" => "application/json"
+      //
+      // ],
 
-        "Content-Type" => "application/json"
+      "auth" => [
+
+        "primaryCredential" => "email",
+        "password" => "password"
 
       ]
 

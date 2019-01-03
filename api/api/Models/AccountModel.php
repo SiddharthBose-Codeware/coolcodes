@@ -1,7 +1,8 @@
 <?php
 include_once("AbstractModel.php");
+include_once("../Facade/Auth/Interfaces/Authorizable.php");
 
-class AccountModel extends AbstractModel {
+class AccountModel extends AbstractModel implements Authorizable {
 
   public static $tableName = "accounts";
 
@@ -86,6 +87,18 @@ class AccountModel extends AbstractModel {
         "email" => $email,
 
         "password" => $password
+
+    ];
+
+  }
+
+  public function getCredentials() {
+
+    return [
+
+      "email" => $this->email,
+
+      "password" => $this->password
 
     ];
 

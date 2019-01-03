@@ -1,6 +1,7 @@
 <?php
 include_once("Routes.php");
 include_once("Config.php");
+include_once("Facade.php");
 
 class App {
 
@@ -8,9 +9,13 @@ class App {
 
   private $appConfig;
 
+  private $facade;
+
   function __construct($appConfig) {
 
     $this->appConfig = $appConfig;
+
+    $this->facade = new Facade($this->appConfig);
 
   }
 
@@ -53,7 +58,7 @@ class App {
 
     if ($this->controller->canExecuteRequest($_SERVER['REQUEST_METHOD'])) {
 
-      $this->controller->execute();
+      $this->controller->execute($this->facade);
 
     } else {
 
@@ -67,4 +72,5 @@ class App {
 
 
 }
+
 ?>

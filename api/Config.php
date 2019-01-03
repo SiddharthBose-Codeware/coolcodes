@@ -36,7 +36,25 @@ class Config {
 
   public function getAdditionalHeaders() {
 
+    if (!isset($this->configItems["additionalHeaders"])) {
+
+      return [];
+
+    }
+
     return $this->configItems["additionalHeaders"];
+
+  }
+
+  public function getAuthPrimaryCredential() {
+
+    return $this->configItems["auth"]["primaryCredential"];
+
+  }
+
+  public function getAuthPassword() {
+
+    return $this->configItems["auth"]["password"];
 
   }
 
