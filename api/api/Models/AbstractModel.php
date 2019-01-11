@@ -2,9 +2,15 @@
 
 abstract class AbstractModel {
 
-  public $pk;
+  public $id;
 
   public static $tableName;
+
+  public function getPK() {
+
+    return $this->id;
+
+  }
 
   abstract function getFields();
 

@@ -1,5 +1,4 @@
 <?php
-include_once("Controller.php");
 
 class GetController extends Controller {
 

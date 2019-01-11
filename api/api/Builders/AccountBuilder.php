@@ -1,5 +1,4 @@
 <?php
-include_once("AbstractBuilder.php");
 
 class AccountBuilder extends AbstractBuilder {
 
@@ -13,7 +12,7 @@ class AccountBuilder extends AbstractBuilder {
 
   public function setFirstName($firstName) {
 
-    $this->instance->setFirstName($firstName));
+    $this->instance->setFirstName($firstName);
 
     return $this;
 
@@ -21,7 +20,7 @@ class AccountBuilder extends AbstractBuilder {
 
   public function setLastName($lastName) {
 
-    $this->instance->setLastName($lastName));
+    $this->instance->setLastName($lastName);
 
     return $this;
 
@@ -29,7 +28,7 @@ class AccountBuilder extends AbstractBuilder {
 
   public function setUsername($username) {
 
-    $this->instance->setUsername($username));
+    $this->instance->setUsername($username);
 
     return $this;
 
@@ -37,7 +36,7 @@ class AccountBuilder extends AbstractBuilder {
 
   public function setEmail($email) {
 
-    $this->instance->setEmail($email));
+    $this->instance->setEmail($email);
 
     return $this;
 
@@ -45,7 +44,7 @@ class AccountBuilder extends AbstractBuilder {
 
   public function setPassword($password) {
 
-    $this->instance->setPassword($password));
+    $this->instance->setPassword($password);
 
     return $this;
 

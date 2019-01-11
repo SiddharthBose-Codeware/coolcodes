@@ -24,11 +24,19 @@ class BuildSQLQuery {
 
   private $insertData;
 
-  function __construct($tableName = NULL) {
+  private $model;
 
-    if ($tableName) {
+  function __construct($name = NULL, $isClass = false) {
 
-      $this->setTableName($tableName);
+    if ($isClass) {
+
+      $this->setModel($name);
+
+      $this->setTableName($this->model::$tableName);
+
+    } else if ($name) {
+
+      $this->setTableName($name);
 
     }
 
@@ -92,6 +100,14 @@ class BuildSQLQuery {
   public function setTableName($tableName) {
 
     $this->tableName = $tableName;
+
+    return $this;
+
+  }
+
+  public function setModel($model) {
+
+    $this->model = $model;
 
     return $this;
 
@@ -200,6 +216,18 @@ class BuildSQLQuery {
   public function getBindValues() {
 
     return $this->bindMap;
+
+  }
+
+  public function isModelSet() {
+
+    return !(is_null($this->model));
+
+  }
+
+  public function getModel() {
+
+    return $this->model;
 
   }
 

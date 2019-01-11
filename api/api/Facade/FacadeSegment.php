@@ -1,6 +1,6 @@
 <?php
 
-class FacadeSegment {
+abstract class FacadeSegment {
 
   protected $appConfig;
 
@@ -9,6 +9,8 @@ class FacadeSegment {
     $this->appConfig = $appConfig;
 
   }
+
+  // abstract function init();
 
 }
 

@@ -1,6 +1,4 @@
 <?php
-include_once("AbstractModel.php");
-include_once("../Facade/Auth/Interfaces/Authorizable.php");
 
 class AccountModel extends AbstractModel implements Authorizable {
 

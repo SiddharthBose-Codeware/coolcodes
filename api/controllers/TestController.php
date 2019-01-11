@@ -1,5 +1,4 @@
 <?php
-include_once("NotGetController.php");
 
 class TestController extends NotGetController {
 

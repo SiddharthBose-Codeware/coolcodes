@@ -4,7 +4,7 @@ abstract class AbstractBuilder {
 
   public static $tableName;
 
-  private $instance;
+  protected $instance;
 
   function __construct() {
 

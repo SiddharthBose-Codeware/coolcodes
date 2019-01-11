@@ -1,6 +1,4 @@
 <?php
-include_once("BuildSQLQuery.php");
-include_once("../Models/AccountModel.php");
 
 class Database {
 
@@ -62,6 +60,12 @@ class Database {
 
       if ($queryBuilder->isSelect()) {
 
+        if ($queryBuilder->isModelSet()) {
+
+          return $result->fetchAll(PDO::FETCH_CLASS, $queryBuilder->getModel());
+
+        }
+
         return $result->fetchAll(PDO::FETCH_ASSOC);
 
       }
@@ -84,11 +88,21 @@ class Database {
 
   public function get($modelClass, $conditions, $toGet = "*") {
 
-    $queryBuilder = ((new BuildSQLQuery($modelClass::$tableName))->select($toGet));
+    $queryBuilder = (($toGet == "*" ? (new BuildSQLQuery($modelClass, true)) : (new BuildSQLQuery($modelClass::$tableName)))->select($toGet));
+
+    $counter = 0;
 
     foreach ($conditions as $conditionKey => $conditionValue) {
 
-      $queryBuilder = $queryBuilder->where($conditionKey, "=", $conditionValue);
+      if (count($conditions) != ++$counter) {
+
+        $queryBuilder = $queryBuilder->where($conditionKey, "=", $conditionValue)->and();
+
+      } else {
+
+        $queryBuilder = $queryBuilder->where($conditionKey, "=", $conditionValue);
+
+      }
 
     }
 
@@ -154,10 +168,10 @@ class Database {
 
 // print_r(Database::getDatabase()->executeQuery((new BuildSQLQuery("accounts"))->select("*")));
 
-// print_r(Database::getDatabase()->get(AccountModel::class, [
+// echo(Database::getDatabase()->get(AccountModel::class, [
 //
 //   "firstName" => "John"
 //
-// ]));
+// ])[0]->getPK());
 
 ?>

@@ -1,7 +1,4 @@
 <?php
-include_once("Routes.php");
-include_once("Config.php");
-include_once("Facade.php");
 
 class App {
 
@@ -31,7 +28,7 @@ class App {
 
     } else {
 
-      $path = str_replace("/coolcodes/api/", "", $_SERVER['REQUEST_URI']);
+      $path = str_replace("/coolcodes/api/", "", explode("?", $_SERVER['REQUEST_URI'])[0]);
 
       if ($_SERVER['REQUEST_URI']{strlen($_SERVER['REQUEST_URI']) - 1} == "/") {
 
@@ -58,7 +55,9 @@ class App {
 
     if ($this->controller->canExecuteRequest($_SERVER['REQUEST_METHOD'])) {
 
-      $this->controller->execute($this->facade);
+      $response = $this->controller->execute($this->facade);
+
+      $response->showResponse();
 
     } else {
 

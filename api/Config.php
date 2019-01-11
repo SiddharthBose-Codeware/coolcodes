@@ -58,6 +58,42 @@ class Config {
 
   }
 
+  public function getAuthModel() {
+
+    return $this->configItems["auth"]["authModel"];
+
+  }
+
+  public function getAuthJWTSecret() {
+
+    return $this->configItems["auth"]["jwtSecret"];
+
+  }
+
+  public function getAuthJWTEncryptAlgo() {
+
+    return $this->configItems["auth"]["jwtEncryptAlgo"];
+
+  }
+
+  public function getAuthJWTEncryptionInitVector() {
+
+    return $this->configItems["auth"]["jwtEncryptionInitVector"];
+
+  }
+
+  public function getAuthAcessTokenExpiration() {
+
+    return $this->configItems["auth"]["jwtAccessTokenExpiration"];
+
+  }
+
+  public function getAuthRefreshTokenExpiration() {
+
+    return $this->configItems["auth"]["jwtRefreshTokenExpiration"];
+
+  }
+
 }
 
 ?>
