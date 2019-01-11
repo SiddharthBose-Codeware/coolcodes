@@ -8,7 +8,7 @@ class RefreshTokenController extends APIController {
 
       $refreshToken = $facade->jwt->getDecryptedToken($_POST['refreshToken']);
 
-      if (!$facade->jwt->isTokenExpired($refreshToken)) {
+      if ($facade->jwt->isTokenExpired($refreshToken)) {
 
         return new JSONResponse([
 
