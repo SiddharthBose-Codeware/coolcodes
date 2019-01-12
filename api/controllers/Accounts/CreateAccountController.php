@@ -10,9 +10,27 @@ class CreateAccountController extends APIController {
 
       // TODO: Return a JSONResponse with some text like more keys required.
 
-      return;
+      return new JSONResponse([
+
+        "description" => $facade->apiStrings->getAPIString('missing_account_creation_details')
+
+      ]);
 
     }
+
+    $alreadyExsistingAccounts = Database::getDatabase()->get(AccountModel::class, ["username" => $_POST['username']]);
+
+    if (!empty($alreadyExsistingAccounts)) {
+
+      return new JSONResponse([
+
+        "description" => $facade->apiStrings->getAPIString('account_with_username_already_exsits', $_POST['username'])
+
+      ]);
+
+    }
+
+
 
     $accountBuilder =
     (new AccountBuilder)
@@ -22,13 +40,13 @@ class CreateAccountController extends APIController {
     ->setEmail($_POST['email'])
     ->setPassword($_POST['password']);
 
-    $acount = $accountBuilder->getInstance();
+    $account = $accountBuilder->getInstance();
 
     Database::getDatabase()->save($account);
 
     return new JSONResponse([
 
-      "description" => "Your account is successfully created."
+      "description" => $facade->apiStrings->getAPIString('account_created', $_POST['username'])
 
     ]);
 

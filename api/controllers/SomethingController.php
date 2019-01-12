@@ -1,6 +1,6 @@
 <?php
 
-class SomethingController extends NotGetController {
+class SomethingController extends Controller {
 
   public function execute($facade) {
 

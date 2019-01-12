@@ -1,6 +1,6 @@
 <?php
 
-class HomeController extends GetController {
+class HomeController extends APIController {
 
   public function execute($facade) {
 

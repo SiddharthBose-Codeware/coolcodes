@@ -112,7 +112,7 @@ class Database {
 
   public function save($model) {
 
-    if ($model->pk) {
+    if ($model->id) {
 
       $this->executeQuery(
 

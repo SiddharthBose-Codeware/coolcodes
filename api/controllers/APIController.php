@@ -10,7 +10,15 @@ abstract class APIController extends Controller {
 
     }
 
-    return !(array_diff_key(array_flip($requiredParameters), $_POST));
+    if (in_array($_SERVER['REQUEST_METHOD'], array('PUT', 'PATCH', 'POST'))) {
+
+      parse_str(file_get_contents("php://input"), $data);
+
+      return !(array_diff_key(array_flip($requiredParameters), $data));
+
+    }
+
+    return !(array_diff_key(array_flip($requiredParameters), $_GET));
 
   }
 

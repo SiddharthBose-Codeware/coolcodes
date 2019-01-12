@@ -12,8 +12,9 @@ class AppDefaults {
       "preparedRoutes" => [
 
         "" => HomeController::class,
-        "login" => LoginController::class,
-        "login/refresh" => RefreshTokenController::class,
+        "account/create" => CreateAccountController::class,
+        "account/login" => LoginController::class,
+        "account/login/refresh" => RefreshTokenController::class,
         "something" => SomethingController::class,
         "something/test" => TestController::class
 

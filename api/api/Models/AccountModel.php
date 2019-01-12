@@ -74,17 +74,15 @@ class AccountModel extends AbstractModel implements Authorizable {
 
     return [
 
-        "accounts" => $accounts,
+        "firstName" => $this->firstName,
 
-        "firstName" => $firstName,
+        "lastName" => $this->lastName,
 
-        "lastName" => $lastName,
+        "username" => $this->username,
 
-        "username" => $username,
+        "email" => $this->email,
 
-        "email" => $email,
-
-        "password" => $password
+        "password" => $this->password
 
     ];
 

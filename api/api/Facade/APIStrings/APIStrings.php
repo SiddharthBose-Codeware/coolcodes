@@ -14,17 +14,27 @@ class APIStrings extends FacadeSegment {
 
       "jwt_token_expired" => "The token given is expired.",
 
-      "credentials_not_given" => "All credentials are not given."
+      "credentials_not_given" => "All credentials are not given.",
+
+      "missing_account_creation_details" => "Some of the account creation info is missing.",
+
+      "account_with_username_already_exsits" => function($username) {
+
+        return "An account already exsits with the username \"".$username."\".";
+
+      },
+
+      "account_created" => "Your account is successfully created."
 
     ];
 
   }
 
-  public function getAPIString($name, $params = []) {
+  public function getAPIString($name, $paramsOrValue = []) {
 
     $value = $this->getAPIStrings()[$name];
 
-    return is_callable($value) ? $value->__invoke($params) : $value;
+    return is_callable($value) ? $value->__invoke($paramsOrValue) : $value;
 
   }
 
