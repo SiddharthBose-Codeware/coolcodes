@@ -6,7 +6,7 @@ class HomeController extends GetController {
 
     // TODO: Change the API response to a JSONResponse
 
-    echo json_encode([
+    return new JSONResponse([
 
       "status" => "API is working somehow."
 

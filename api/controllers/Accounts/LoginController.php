@@ -2,6 +2,8 @@
 
 class LoginController extends APIController {
 
+  protected static $canExecuteMethods = ["POST"];
+
   public function execute($facade) {
 
     $primaryCredentialField = $facade->auth->getPrimaryCredentialField();

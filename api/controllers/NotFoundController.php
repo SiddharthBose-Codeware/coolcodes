@@ -1,10 +1,14 @@
 <?php
 
-class NotFoundController extends NotGetController {
+class NotFoundController extends APIController {
 
   public function execute($facade) {
 
-    echo "<h1>Go and get some typing lessons. Foolish dumb person!!!!</h1>";
+    return JSONResponse([
+
+      "error" => "This API view does not exist."
+
+    ], 404);
 
   }
 

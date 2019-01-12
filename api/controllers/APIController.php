@@ -1,6 +1,6 @@
 <?php
 
-class APIController extends PostController {
+abstract class APIController extends Controller {
 
   public function isRequiredParamtersGiven($requiredParameters) {
 

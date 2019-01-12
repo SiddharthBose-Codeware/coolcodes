@@ -2,11 +2,13 @@
 
 abstract class Controller {
 
-  public function execute($facade) {}
+  protected static $canExecuteMethods = [];
 
-  function canExecuteRequest($type) {
+  abstract public function execute($facade);
 
-    return true;
+  public function canExecuteRequest($type) {
+
+    return empty(static::$canExecuteMethods) ? true : in_array($type, static::$canExecuteMethods);
 
   }
 

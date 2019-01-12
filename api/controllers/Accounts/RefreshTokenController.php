@@ -2,6 +2,8 @@
 
 class RefreshTokenController extends APIController {
 
+  protected static $canExecuteMethods = ["GET"];
+
   public function execute($facade) {
 
     if ($this->isRequiredParamtersGiven('refreshToken')) {

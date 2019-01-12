@@ -2,6 +2,8 @@
 
 class CreateAccountController extends APIController {
 
+  protected static $canExecuteMethods = ["POST"];
+
   public function execute($facade) {
 
     if (!$this->isRequiredParamtersGiven(['firstName', 'lastName', 'username', 'email', 'password'])) {
